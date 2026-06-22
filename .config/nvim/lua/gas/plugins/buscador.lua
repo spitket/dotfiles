@@ -38,10 +38,15 @@ return {
 
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "-", ":Telescope file_browser<CR>", { silent = true })
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Buscar Archivo" })
-      vim.keymap.set("n", "<leader>fx", builtin.treesitter, { desc = "Buscar Símbolos" })
-      vim.keymap.set("n", "<leader>fs", builtin.spell_suggest, { desc = "Ortografía" })
-    end
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+      vim.keymap.set("n", "<leader>fF", function() builtin.find_files({	hidden = true,
+	no_ignore = true }) end, { desc = "Find File Hidden" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find Grep" })  
+      vim.keymap.set("n", "<leader>fG", function() builtin.live_grep({ additional_args = function() return { "--hidden", "--no-ignore" } end }) end, { desc = "Find Grep Hidden" })    
+      vim.keymap.set("n", "<leader>fx", builtin.treesitter, { desc = "Find Symbols" })
+      vim.keymap.set("n", "<leader>fs", builtin.spell_suggest, { desc = "Find Spell" })
+
+end
   }
 }
 
