@@ -51,6 +51,9 @@ tiling_drag modifier titlebar
 # start a terminal
 bindsym $mod+Return exec kitty # i3-sensible-terminal
 
+# start nvim
+bindsym $mod+BackSpace exec kitty -e nvim
+
 # kill focused window
 bindsym $mod+Shift+q kill
 

@@ -91,6 +91,21 @@ return {
           capabilities = require('cmp_nvim_lsp').default_capabilities()
         })
       end
+      if vim.lsp.config then
+        vim.lsp.config('clangd', {})
+      else
+        require('lspconfig')['clangd'].setup({
+          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+          cmd = {
+            "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--header-insertion=never", 
+	    "--completion-style=detailed",
+            "--fallback-style=llvm"
+          }
+        })
+      end
     end
   }
 }
