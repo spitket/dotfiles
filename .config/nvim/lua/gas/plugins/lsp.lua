@@ -84,28 +84,23 @@ return {
         end,
       })
 
-      if vim.lsp.config then
-        vim.lsp.config('rust_analyzer', {})
-      else
-        require('lspconfig')['rust_analyzer'].setup({
-          capabilities = require('cmp_nvim_lsp').default_capabilities()
-        })
-      end
-      if vim.lsp.config then
-        vim.lsp.config('clangd', {})
-      else
-        require('lspconfig')['clangd'].setup({
-          capabilities = require('cmp_nvim_lsp').default_capabilities(),
-          cmd = {
-            "clangd",
-            "--background-index",
-            "--clang-tidy",
-            "--header-insertion=never", 
-	    "--completion-style=detailed",
-            "--fallback-style=llvm"
-          }
-        })
-      end
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      vim.lsp.config('rust_analyzer', { capabilities = capabilities })
+      vim.lsp.enable('rust_analyzer')
+
+      vim.lsp.config('clangd', {
+        capabilities = capabilities,
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=never", 
+          "--completion-style=detailed",
+          "--fallback-style=llvm"
+        }
+      })
+      vim.lsp.enable('clangd')
     end
   }
 }
